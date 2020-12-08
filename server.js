@@ -10,8 +10,6 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors());
 
-// console.log(process.env.API_TOKEN)
-
 app.use(function validateBearerToken(req, res, next) {
     const bearerToken = req.get('Authorization');
     const apiToken = process.env.API_TOKEN;
@@ -56,12 +54,13 @@ function handleGetMovie(req, res) {
              movie.genre.toLowerCase().includes(genre.toLowerCase()))
         movieList = list2.filter(movie => movie.avg_vote >= vote)
     }
-    // let movieList = MOVIES
     res.send(movieList)
 }
 
 app.get('/movie', handleGetMovie)
 
-app.listen(8000, () => {
-    console.log('Port started on 8000')
-})
+const PORT = process.env.PORT || 8000
+
+app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`)
+  })
