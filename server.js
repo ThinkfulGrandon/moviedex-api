@@ -21,9 +21,9 @@ app.use(function validateBearerToken(req, res, next) {
 });
 
 function handleGetMovie(req, res) {
-    const { genre, country, vote } = req.query;
+    const { genre, country, avg_vote } = req.query;
     let movieList;
-    if(!genre && !country && !vote) {
+    if(!genre && !country && !avg_vote) {
         movieList = MOVIES
     }
     if(genre) {
@@ -34,26 +34,26 @@ function handleGetMovie(req, res) {
         movieList = MOVIES.filter(movie =>
              movie.country.toLowerCase().includes(country.toLowerCase()))
     }
-    if(vote) {
+    if(avg_vote) {
         movieList = MOVIES.filter(movie =>
-             movie.avg_vote >= vote)
+             movie.avg_vote >= avg_vote)
     }
-    if(genre && vote) {
+    if(genre && avg_vote) {
         let list = MOVIES.filter(movie =>
              movie.genre.toLowerCase().includes(genre.toLowerCase()))
-        movieList = list.filter(movie => movie.avg_vote >= vote)
+        movieList = list.filter(movie => movie.avg_vote >= avg_vote)
     }
-    if(country && vote) {
+    if(country && avg_vote) {
         let list = MOVIES.filter(movie =>
              movie.country.toLowerCase().includes(country.toLowerCase()))
-        movieList = list.filter(movie => movie.avg_vote >= vote)
+        movieList = list.filter(movie => movie.avg_vote >= avg_vote)
     }
-    if(genre && country && vote) {
+    if(genre && country && avg_vote) {
         let list = MOVIES.filter(movie =>
              movie.country.toLowerCase().includes(country.toLowerCase()))
         let list2 = list.filter(movie =>
              movie.genre.toLowerCase().includes(genre.toLowerCase()))
-        movieList = list2.filter(movie => movie.avg_vote >= vote)
+        movieList = list2.filter(movie => movie.avg_vote >= avg_vote)
     }
     res.send(movieList)
 }
