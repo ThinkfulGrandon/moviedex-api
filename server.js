@@ -24,31 +24,38 @@ function handleGetMovie(req, res) {
     const { genre, country, avg_vote } = req.query;
     let movieList;
     if(!genre && !country && !avg_vote) {
+        console.log('no queries');
         movieList = MOVIES
     }
     if(genre) {
+        console.log('genre query');
         movieList = MOVIES.filter(movie =>
              movie.genre.toLowerCase().includes(genre.toLowerCase()))
     }
     if(country) {
+        console.log('country query');
         movieList = MOVIES.filter(movie =>
              movie.country.toLowerCase().includes(country.toLowerCase()))
     }
     if(avg_vote) {
+        console.log('avg_vote query');
         movieList = MOVIES.filter(movie =>
              movie.avg_vote >= avg_vote)
     }
     if(genre && avg_vote) {
+        console.log('genre + avg_vote query');
         let list = MOVIES.filter(movie =>
              movie.genre.toLowerCase().includes(genre.toLowerCase()))
         movieList = list.filter(movie => movie.avg_vote >= avg_vote)
     }
     if(country && avg_vote) {
+        console.log('country + avg_vote query');
         let list = MOVIES.filter(movie =>
              movie.country.toLowerCase().includes(country.toLowerCase()))
         movieList = list.filter(movie => movie.avg_vote >= avg_vote)
     }
     if(genre && country && avg_vote) {
+        console.log('genre + country + avg_vote query');
         let list = MOVIES.filter(movie =>
              movie.country.toLowerCase().includes(country.toLowerCase()))
         let list2 = list.filter(movie =>
